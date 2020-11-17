@@ -36,19 +36,63 @@ Remove-Item $edgeLink
 # -----------------------------------------------------------------------------
 # To list all appx packages:
 # Get-AppxPackage | Format-Table -Property Name,Version,PackageFullName
-Write-Host "Removing UWP Rubbish..." -ForegroundColor Green
+Write-Host "Removing preinstalled crap..." -ForegroundColor Green
 Write-Host "------------------------------------" -ForegroundColor Green
 $uwpRubbishApps = @(
-    "Microsoft.Messaging",
-    "king.com.CandyCrushSaga",
-    "Microsoft.BingNews",
-    "Microsoft.MicrosoftSolitaireCollection",
-    "Microsoft.People",
-    "Microsoft.WindowsFeedbackHub",
-    "Microsoft.YourPhone",
-    "Microsoft.MicrosoftOfficeHub",
-    "Fitbit.FitbitCoach",
-    "4DF9E0F8.Netflix")
+        #Unnecessary Windows 10 AppX Apps
+        "Microsoft.BingNews"
+        "Microsoft.GetHelp"
+        "Microsoft.Getstarted"
+        "Microsoft.Messaging"
+        "Microsoft.Microsoft3DViewer"
+        "Microsoft.MicrosoftOfficeHub"
+        "Microsoft.MicrosoftSolitaireCollection"
+        "Microsoft.NetworkSpeedTest"
+        "Microsoft.News"
+        "Microsoft.Office.Lens"
+        "Microsoft.Office.OneNote"
+        "Microsoft.Office.Sway"
+        "Microsoft.OneConnect"
+        "Microsoft.People"
+        "Microsoft.Print3D"
+        "Microsoft.RemoteDesktop"
+        "Microsoft.SkypeApp"
+        "Microsoft.StorePurchaseApp"
+        "Microsoft.Office.Todo.List"
+        "Microsoft.Whiteboard"
+        "Microsoft.WindowsAlarms"
+        "microsoft.windowscommunicationsapps"
+        "Microsoft.WindowsFeedbackHub"
+        "Microsoft.WindowsMaps"
+        "Microsoft.WindowsSoundRecorder"
+        "Microsoft.Xbox.TCUI"
+        "Microsoft.XboxApp"
+        "Microsoft.XboxGameOverlay"
+        "Microsoft.XboxIdentityProvider"
+        "Microsoft.XboxSpeechToTextOverlay"
+        "Microsoft.ZuneMusic"
+        "Microsoft.ZuneVideo"
+
+        #Sponsored Windows 10 AppX Apps
+        #Add sponsored/featured apps to remove in the "*AppName*" format
+        "*Microsoft.BingWeather*"
+        "*EclipseManager*"
+        "*ActiproSoftwareLLC*"
+        "*AdobeSystemsIncorporated.AdobePhotoshopExpress*"
+        "*Duolingo-LearnLanguagesforFree*"
+        "*PandoraMediaInc*"
+        "*CandyCrush*"
+        "*BubbleWitch3Saga*"
+        "*Wunderlist*"
+        "*Flipboard*"
+        "*Twitter*"
+        "*Facebook*"
+        "*Spotify*"
+        "*Minecraft*"
+        "*Royal Revolt*"
+        "*Sway*"
+        "*Speed Test*"
+        "*Dolby*")
 
 foreach ($uwp in $uwpRubbishApps) {
     Get-AppxPackage -Name $uwp | Remove-AppxPackage
@@ -86,13 +130,13 @@ else {
     Write-Host ""
     Write-Host "Installing Chocolate for Windows..." -ForegroundColor Green
     Write-Host "------------------------------------" -ForegroundColor Green
-    Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+    Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 }
 
 Write-Host ""
 Write-Host "Installing Applications..." -ForegroundColor Green
 Write-Host "------------------------------------" -ForegroundColor Green
-Write-Host "[WARN] Ma de in China: some software like Google Chrome require the true Internet first" -ForegroundColor Yellow
+Write-Host "[WARN] Made in China: some software like Google Chrome require the true Internet first" -ForegroundColor Yellow
 
 if (Check-Command -cmdname 'git') {
     Write-Host "Git is already installed, checking new version..."
@@ -116,7 +160,7 @@ else {
 
 choco install 7zip.install -y
 choco install googlechrome -y
-choco install potplayer -y
+choco install microsoft-edge -y
 choco install dotnetcore-sdk -y
 choco install ffmpeg -y
 choco install curl -y
@@ -129,14 +173,12 @@ choco install vscode-mssql -y
 choco install vscode-powershell -y
 choco install sysinternals -y
 choco install notepadplusplus.install -y
-choco install dotpeek -y
-choco install linqpad -y
+choco install microsoft-windows-terminal -y
 choco install fiddler -y
-choco install beyondcompare -y
-choco install filezilla -y
+choco install winscp -y
 choco install lightshot.install -y
-choco install microsoft-teams.install -y
-choco install teamviewer -y
+choco install slack
+choco install fusion-ldv
 choco install github-desktop -y
 
 Write-Host "------------------------------------" -ForegroundColor Green
